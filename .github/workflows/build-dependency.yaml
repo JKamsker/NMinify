@@ -1,0 +1,31 @@
+# Github Workflow to build the dependency by calling $RootDir/.build/build-go.sh
+# Should run on every push to master
+# runs on ubuntu amd64
+# publishes the build files as an artifact
+# Artifacts are located in .bin\go\lib
+name: Build dependency
+on:
+  push:
+    # Publish `master` as Docker `latest` image.
+    branches:
+      - master
+jobs:
+  build:
+    name: Build dependency
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Build dependency
+        run: |
+          chmod +x .build/build-go.sh
+          .build/build-go.sh
+      - name: Echo contents of the output
+        run: |
+          tree .bin\go\lib
+      - name: Upload build files
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-files
+          path: .bin\go\lib
+          retention-days: 5
