@@ -22,7 +22,7 @@ jobs:
           .build/build-go.sh
       - name: Echo contents of the output
         run: |
-          tree .bin\go\lib
+          tree 
       - name: Upload build files
         uses: actions/upload-artifact@v2
         with:
