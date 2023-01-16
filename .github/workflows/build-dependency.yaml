@@ -22,10 +22,10 @@ jobs:
           .build/build-go.sh
       - name: Echo contents of the output
         run: |
-          tree 
+          tree -la
       - name: Upload build files
         uses: actions/upload-artifact@v2
         with:
           name: build-files
-          path: .bin\go\lib
+          path: .bin/go/lib
           retention-days: 5
