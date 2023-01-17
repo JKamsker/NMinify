@@ -11,6 +11,8 @@ on:
       - master
 jobs:
   build:
+    # Check if src/minify-go is modified,  if not, skip this job
+    
     name: Build dependency
     runs-on: ubuntu-latest
     steps:
@@ -28,4 +30,22 @@ jobs:
         with:
           name: build-files
           path: .bin/go/lib
+          retention-days: 5
+      - 
+        name: Install dotnet 7
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 7.0.100
+      -
+        name: Build dotnet
+        run: |
+          echo "Build number: ${{ github.run_number }}"
+          chmod +x .build/build-net.sh
+          .build/build-net.sh --version=1.0.${{ github.run_number }}
+      - 
+        name: Upload build files
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-files
+          path: .bin/net/lib
           retention-days: 5
