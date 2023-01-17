@@ -59,9 +59,6 @@ Please note that the underlying minify library by tdewolff is also released unde
 
 By using NMinify, you are agreeing to the terms of the MIT License. If you do not agree to these terms, you should not use this software.
 
-
-Made with [stackedit.io](https://stackedit.io/), [minify](https://github.com/tdewolff/minify) and lots of ❤️ in Austria
-
 ----------
 
 <p align="center">Made with <a href="https://stackedit.io/">stackedit.io</a>, <a href="https://github.com/tdewolff/minify">minify</a> and lots of ❤️ in Austria</p>
