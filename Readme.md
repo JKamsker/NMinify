@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://github.com/JKamsker/NMinify">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="http://i.epvpimg.com/EmTMaab.png">
-      <img src="http://i.epvpimg.com/EmTMaab.png" height="128">
+      <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/11245306/213036984-a5fcea65-751b-4279-87d4-f73ffa95aa8e.png">
+      <img src="https://user-images.githubusercontent.com/11245306/213036984-a5fcea65-751b-4279-87d4-f73ffa95aa8e.png" height="128">
     </picture>
     <h1 align="center">NMinify</h1>
     <p align="center">A .NET wrapper for the golang minify library</p>

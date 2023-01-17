@@ -8,9 +8,7 @@ on:
   push:
     # Only build on push to master and tag
     branches:
-      - master
-    tags:
-      - '*'
+      - release
 jobs:
   build:
     # Check if src/minify-go is modified,  if not, skip this job
