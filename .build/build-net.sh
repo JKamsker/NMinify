@@ -4,7 +4,7 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" # Get the path to the directory of this script
 ROOT_DIR=$SCRIPT_DIR/..
-SRC_DIR=$ROOT_DIR/src/minify-net/core
+SRC_DIR=$ROOT_DIR/src/minify-net/Core
 VERSION=0.0.1
 
 # Parse arguments
@@ -42,6 +42,6 @@ dotnet pack -c Release -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg -p:V
 
 mkdir -p $ROOT_DIR/.bin/net/lib/
 rm -rf $ROOT_DIR/.bin/net/lib/*
-mv $ROOT_DIR/src/minify-net/Core/bin/Release/*.nupkg $ROOT_DIR/.bin/net/lib/
-mv $ROOT_DIR/src/minify-net/Core/bin/Release/*.snupkg $ROOT_DIR/.bin/net/lib/
+mv $SRC_DIR/bin/Release/*.nupkg $ROOT_DIR/.bin/net/lib/
+mv $SRC_DIR/bin/Release/*.snupkg $ROOT_DIR/.bin/net/lib/
 
