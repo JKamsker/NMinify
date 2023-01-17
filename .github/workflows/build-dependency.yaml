@@ -6,9 +6,11 @@
 name: Build dependency
 on:
   push:
-    # Publish `master` as Docker `latest` image.
+    # Only build on push to master and tag
     branches:
       - master
+    tags:
+      - '*'
 jobs:
   build:
     # Check if src/minify-go is modified,  if not, skip this job
