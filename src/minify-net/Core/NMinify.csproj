@@ -4,12 +4,25 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<GeneratePackageOnBuild Condition="$(CONFIGURATION)==RELEASE">True</GeneratePackageOnBuild>
 		<Version>1.0.0</Version>
+		<Title>Minify dotnet wrapper</Title>
+		<Description>A dotnet wrapper around minify</Description>
+		<Authors>Jonas Kamsker</Authors>
+		<Copyright>JKamsker</Copyright>
+		<PackageProjectUrl>https://github.com/JKamsker/NMinify</PackageProjectUrl>
+    	<RepositoryUrl>https://github.com/JKamsker/NMinify</RepositoryUrl>
+		<PackageTags>shlink, dotnet, c#, net 6,</PackageTags>
+		<PackageLicenseFile>License.md</PackageLicenseFile>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="..\..\..\.bin\go\lib\**" Pack="true" PackagePath="runtimes" Condition="$(CONFIGURATION)==RELEASE" />
+		<None Include="..\..\..\License.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		  </None>
 	</ItemGroup>
 
 </Project>

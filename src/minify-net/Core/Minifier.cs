@@ -8,13 +8,13 @@ using NMinify.Interop;
 
 namespace NMinify;
 
-public class Minifier : IDisposable
+public class Minifier : IDisposable, IMinifier
 {
     static Minifier()
     {
         LibraryResolver.Register();
     }
-    
+
     private UIntPtr _minifierPtr;
     private bool _disposed;
 
