@@ -1,12 +1,21 @@
-# NMinify
-A .NET wrapper for the golang minify library
+<p align="center">
+  <a href="https://github.com/JKamsker/NMinify">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="http://i.epvpimg.com/EmTMaab.png">
+      <img src="http://i.epvpimg.com/EmTMaab.png" height="128">
+    </picture>
+    <h1 align="center">NMinify</h1>
+    <p align="center">A .NET wrapper for the golang minify library</p>
+  </a>
+</p>
 
+ <p align="center">
 [![NuGet version (NMinify)](https://img.shields.io/nuget/v/NMinify.svg?style=flat-square)](https://www.nuget.org/packages/NMinify)
 [![Nuget](https://img.shields.io/nuget/dt/NMinify)](https://www.nuget.org/packages/NMinify)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/JKamsker/NMinify/.NET)](https://github.com/JKamsker/NMinify/actions)
 [![GitHub license](https://img.shields.io/github/license/JKamsker/NMinify)](https://github.com/JKamsker/NMinify/blob/master/LICENSE.txt)
 [![PR](https://img.shields.io/badge/PR-Welcome-blue)](https://github.com/JKamsker/NMinify/pulls)
-
+</p>
 
 ## Installation
 
