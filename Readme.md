@@ -1,13 +1,12 @@
 <p align="center">
   <a href="https://github.com/JKamsker/NMinify">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/11245306/213036984-a5fcea65-751b-4279-87d4-f73ffa95aa8e.png">
-      <img src="https://user-images.githubusercontent.com/11245306/213036984-a5fcea65-751b-4279-87d4-f73ffa95aa8e.png" height="128" alt="NMinify logo">
+      <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/11245306/213277904-0129ae88-f655-4e03-a723-e5bac4b864e1.png">
+      <img src="https://user-images.githubusercontent.com/11245306/213277904-0129ae88-f655-4e03-a723-e5bac4b864e1.png" height="128" alt="NMinify logo">
     </picture>
-    <p align="center">A .NET wrapper for the golang minify library</p>
+    <p align="center">Minify HTML, CSS, JS and more</p>
   </a>
 </p>
-
 
 [![NuGet version (NMinify)](https://img.shields.io/nuget/v/NMinify.svg?style=flat-square)](https://www.nuget.org/packages/NMinify)
 [![Nuget](https://img.shields.io/nuget/dt/NMinify)](https://www.nuget.org/packages/NMinify)
@@ -15,6 +14,9 @@
 [![GitHub license](https://img.shields.io/github/license/JKamsker/NMinify)](https://github.com/JKamsker/NMinify/blob/master/LICENSE.txt)
 [![PR](https://img.shields.io/badge/PR-Welcome-blue)](https://github.com/JKamsker/NMinify/pulls)
 
+## Introduction
+NMinify is a Wrapper for the [golang library minify](https://github.com/tdewolff/minify). <br/>
+Minification is the process of removing bytes from a file (such as whitespace) without changing its output and therefore shrinking its size and speeding up transmission over the internet and possibly parsing. The implemented minifiers are designed for high performance.
 
 ## Installation
 
@@ -46,10 +48,11 @@ Once NMinify is installed, you can start using it in your project by adding `usi
 ```csharp
 var text = "<span style=\"color:#ff0000;\" class=\"text\">Some  text</span>";
 var minifier = new Minifier();
-var minified = minifier.MinifyString("text/html", text);
+var minified = minifier.MinifyString(MinifierMediaType.Html, text);
 
-Console.WriteLine(text);
-Console.WriteLine(minified);
+
+Console.WriteLine(text); // Output: <span style="color:#ff0000;" class="text">Some  text</span>
+Console.WriteLine(minified); // Output: <span style=color:red class=text>Some text</span>
 ```
 
 ## Available Methods
