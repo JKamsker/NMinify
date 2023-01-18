@@ -14,15 +14,25 @@
 		<Copyright>JKamsker</Copyright>
 		<PackageProjectUrl>https://github.com/JKamsker/NMinify</PackageProjectUrl>
     	<RepositoryUrl>https://github.com/JKamsker/NMinify</RepositoryUrl>
-		<PackageTags>shlink, dotnet, c#, net 6,</PackageTags>
+		<PackageTags>NMinify, dotnet, c#, net 7, minify, javascript, css, svg, go, html, json, js, xml, minifier</PackageTags>
 		<PackageLicenseFile>License.md</PackageLicenseFile>
+		<PackageIcon>Logo.png</PackageIcon>
+		<PackageReadmeFile>Readme-Nuget.md</PackageReadmeFile>
 	</PropertyGroup>
-	<ItemGroup>
-		<None Include="..\..\..\.bin\go\lib\**" Pack="true" PackagePath="runtimes" Condition="$(CONFIGURATION)==RELEASE" />
+	<ItemGroup Condition="$(CONFIGURATION)==RELEASE">
+		<None Include="..\..\..\.bin\go\lib\**" Pack="true" PackagePath="runtimes" />
 		<None Include="..\..\..\License.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
-		  </None>
+		</None>
+		<None Include="..\..\..\.bin\resources\Readme-Nuget.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\..\.bin\resources\Logo.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 </Project>
