@@ -24,7 +24,7 @@ if [ ! -f "$SCRIPT_DIR/tmp/xgo" ]; then
 else
     echo "xgo already downloaded"
 fi
-
+# exit;
 # delete $ROOT_DIR/.bin/go/tmp if exists
 if [ -d "$ROOT_DIR/.bin/go/tmp" ]; then
     rm -rf $ROOT_DIR/.bin/go/tmp
@@ -33,7 +33,9 @@ fi
 mkdir -p $ROOT_DIR/.bin/go/tmp/output
 cd $ROOT_DIR/.bin/go/tmp/output
 
-$SCRIPT_DIR/tmp/xgo -buildmode=c-shared $SRC_DIR
+# does not work, just for debug
+# $SCRIPT_DIR/tmp/xgo -buildmode=c-shared -targets windows/386 $SRC_DIR
+$SCRIPT_DIR/tmp/xgo -buildmode=c-shared -targets windows/amd64 $SRC_DIR
 # END BUILD
 
 
@@ -46,10 +48,10 @@ mkdir -p $OUTPUT_DIR
 
 # Loop through the files in the current directory
 for file in output/*; do
-    # echo $file
+    echo $file
     
     # Extract the platform and architecture from the filename using regular expressions
-    if [[ $file =~ minifier-bindings-(darwin|linux|windows)-(amd64|arm64|ppc64le|riscv64|s390x).* ]]; then
+    if [[ $file =~ minifier-bindings-(darwin|linux|windows)-(amd64|arm64|ppc64le|riscv64|s390x|386).* ]]; then
         platform=${BASH_REMATCH[1]}
         architecture=${BASH_REMATCH[2]}
         
@@ -65,4 +67,4 @@ done
 
 mv lib $OUTPUT_DIR/..
 
-# rm -rf $ROOT_DIR/.bin/go/tmp
+rm -rf $ROOT_DIR/.bin/go/tmp

@@ -24,13 +24,42 @@ import "C"
 func init() {
 }
 
-func goBytes(str *C.char, length C.longlong) []byte {
-	return (*[1 << 32]byte)(unsafe.Pointer(str))[:length:length]
-}
+// func goBytes(str *C.char, length C.longlong) []byte {
+// 	return (*[1 << 32]byte)(unsafe.Pointer(str))[:length:length]
+// }
 
 // func goBytes(str *C.char, length C.longlong) []byte {
 //     return (*[1 << 30]byte)(unsafe.Pointer(str))[:length:length]
 // }
+
+// Compiles, but doesn't work
+// func goBytes(str *C.char, length C.longlong) []byte {
+// 	return (*(*[]byte)(unsafe.Pointer(str)))[:length:length]
+// }
+
+// func goBytes(str *C.char, length C.longlong) []byte {
+// 	_ = (*(*[]*C.char)(unsafe.Pointer(str)))[:length:length]
+
+// 	return (*[1 << 32]byte)(unsafe.Pointer(str))[:length:length]
+// }
+
+// func goStringArray(carr **C.char, length C.longlong) []string {
+// 	if length == 0 {
+// 		return []string{}
+// 	}
+
+// 	strs := make([]string, length)
+// 	// arr := (*[1 << 32]*C.char)(unsafe.Pointer(carr))[:length:length]
+// 	arr := (*(*[]C.char)(unsafe.Pointer(carr)))[:length:length]
+// 	for i := 0; i < int(length); i++ {
+// 		strs[i] = C.GoString(arr[i])
+// 	}
+// 	return strs
+// }
+
+func goBytes(str *C.char, length C.longlong) []byte {
+	return (*(*[]byte)(unsafe.Pointer(str)))[:length:length]
+}
 
 func goStringArray(carr **C.char, length C.longlong) []string {
 	if length == 0 {
@@ -38,7 +67,8 @@ func goStringArray(carr **C.char, length C.longlong) []string {
 	}
 
 	strs := make([]string, length)
-	arr := (*[1 << 32]*C.char)(unsafe.Pointer(carr))[:length:length]
+	//arr := (*[1 << 32]*C.char)(unsafe.Pointer(carr))[:length:length]
+	arr := (*(*[]*C.char)(unsafe.Pointer(carr)))[:length:length]
 	for i := 0; i < int(length); i++ {
 		strs[i] = C.GoString(arr[i])
 	}

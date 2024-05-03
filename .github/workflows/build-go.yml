@@ -1,0 +1,25 @@
+# Github action configuration which cross compiles "src\minify-go\minify.go" to all available os/archs
+# and places the binaries in "bin\minify-go"
+name: Build Minify-Go
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: 1.15
+      - name: Cross compile minify-go
+        run: |
+          go get github.com/mitchellh/gox
+          gox -os="linux darwin windows" -arch="386 amd64" -output="bin/minify-go/minify_{{.OS}}_{{.Arch}}" src/minify-go/minify.go
+

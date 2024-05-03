@@ -15,7 +15,7 @@ public static class LibraryResolver
 {
     public static Func<IEnumerable<string>> LibraryDirectoryResolver = GetLibraryDirectories;
 
-    static Dictionary<(Assembly assembly, DllImportSearchPath? searchPath), nint> _loadedLibraries 
+    static Dictionary<(Assembly assembly, DllImportSearchPath? searchPath), nint> _loadedLibraries
         = new();
 
     private static bool _registered;
@@ -29,7 +29,7 @@ public static class LibraryResolver
         _registered = true;
         NativeLibrary.SetDllImportResolver(typeof(LibraryResolver).Assembly, Resolve);
         //NativeLibrary.SetDllImportResolver(Assembly.GetExecutingAssembly(), Resolve);
-        
+
     }
 
     private static nint Resolve(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
@@ -56,6 +56,9 @@ public static class LibraryResolver
             return nint.Zero;
         }
 
+// #if DEBUG
+//         Console.WriteLine($"Loading {lib}");
+// #endif
         return NativeLibrary.Load(lib, assembly, searchPath);
     }
 
@@ -71,7 +74,16 @@ public static class LibraryResolver
         .Prepend(Environment.CurrentDirectory)
         .Distinct();
 
-        return directories.Concat(directories.Select(n => Path.Combine(n, "..\\..\\..\\..\\..\\..\\..\\.bin\\go\\lib\\")));
+        return directories.Concat(directories.Select(n =>
+        {
+            var root = GetRootPath(n);
+            if (!string.IsNullOrEmpty(root))
+            {
+                return Path.Combine(root, ".bin\\go\\lib\\");
+            }
+
+            return Path.Combine(n, "..\\..\\..\\..\\..\\..\\..\\.bin\\go\\lib\\");
+        }));
 
         static IEnumerable<string> GetDirectories(params string?[] files)
         {
@@ -83,17 +95,37 @@ public static class LibraryResolver
         }
     }
 
+    // Root is marked by a .gitignore file, a .bin file and a .build file. Go up until those files are there.
+    private static string? GetRootPath(string someSubChild)
+    {
+        var root = Path.GetFullPath(someSubChild);
+        while (!File.Exists(Path.Combine(root, ".gitignore"))
+            || !Directory.Exists(Path.Combine(root, ".bin"))
+            || !Directory.Exists(Path.Combine(root, ".build")))
+        {
+            root = Path.GetDirectoryName(root);
+            if (string.IsNullOrEmpty(root))
+            {
+                return null;
+            }
+        }
+        return root;
+    }
+
+
 
     public static string? ResolveLibraryPath(IEnumerable<string> basePaths)
     {
         string relativeLibraryPath = GetRelativeLibraryPath();
 
-        return basePaths
-            .Select(x => Path.Combine(x, relativeLibraryPath))
-            .FirstOrDefault(x => File.Exists(x));
+        var paths = Enumerable.Concat
+        (
+            basePaths.Select(x => Path.Combine(x, relativeLibraryPath)),
+            basePaths.Select(x => Path.Combine(x, "runtimes", relativeLibraryPath))
+        );
 
-        // Return the path to the library file
-        //return Path.Combine(libraryPath ?? Directory.GetCurrentDirectory(), relativeLibraryPath);
+        return paths
+            .FirstOrDefault(x => File.Exists(x));
     }
 
 
@@ -158,6 +190,10 @@ public static class LibraryResolver
         else if (RuntimeInformation.ProcessArchitecture == Architecture.Arm)
         {
             return "arm64";
+        }
+        else if (RuntimeInformation.ProcessArchitecture == Architecture.X86)
+        {
+            return "386";
         }
         else
         {
